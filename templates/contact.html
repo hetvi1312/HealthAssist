@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Genai</title>
+    <style>
+        /* Style for the header, footer, and general layout (reuse the same styles) */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0048ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .login-btn {
+            background-color: #0048ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #007bff;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Style for the contact form */
+        .contact-form {
+            flex: 1;
+            margin-right: 50px;
+        }
+
+        .contact-form h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .contact-form button {
+            background-color: #0048ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #007bff;
+        }
+
+        /* Style for the company info section */
+        .company-info {
+            flex: 1;
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-info h3 {
+            font-size: 24px;
+            color: #0048ff;
+            margin-bottom: 10px;
+        }
+
+        .company-info p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+
+            .contact-form {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Logo">-->
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/contact">Contact</a>
+            <a href="/video">Video</a>
+            <a href="/exercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/doctor">Doctor</a>
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+
+
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <form action="#" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name.." required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email.." required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write something.." rows="5" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Company Information -->
+        <div class="company-info">
+            <h3>About Genai</h3>
+            <p>Genai is a leading AI-powered health platform providing expert medical advice, appointment scheduling, exercise and yoga guidance, and personalized health recommendations. Our mission is to improve the well-being of individuals through cutting-edge AI solutions and healthcare integration.</p>
+            <p>With a team of dedicated professionals, we ensure that users receive accurate and timely health advice tailored to their needs. Contact us today to learn more about how Genai can help you achieve your health goals.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Genai. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

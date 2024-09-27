@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category_name }} Exercises | Genai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0048ff;
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .login-btn {
+            background-color: #0048ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #007bff;
+        }
+
+        /* Exercise Container Styles */
+        .exercise-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .exercise-item {
+            display: flex;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-item img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .exercise-info {
+            margin-left: 20px;
+            flex: 1;
+        }
+
+        .exercise-info h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .exercise-info p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .timer {
+            color: #ff6347;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .start-button {
+            background-color: #ff6347;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .start-button:hover {
+            background-color: #ff4b2b;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Logo">-->
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/contact">Contact</a>
+            <a href="/video">Video</a>
+            <a href="/exercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/doctor">Doctor</a>
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+
+
+        </nav>
+    </header>
+
+    <!-- Exercise Section -->
+    <div class="exercise-container">
+        <h1>{{ category_name }} Exercises</h1>
+
+        <!-- Dynamically rendered exercise items -->
+        {% for exercise in exercises %}
+        <div class="exercise-item">
+            <img src="{{ url_for('static', filename='images/' + exercise.exercise_image) }}" alt="{{ exercise.exercise_name }}">
+            <div class="exercise-info">
+                <h3>{{ exercise.exercise_name }}</h3>
+                <p>{{ exercise.exercise_details }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Genai. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

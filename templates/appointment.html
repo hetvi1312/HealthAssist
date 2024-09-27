@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <style>
+        /* Center the form on the page */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0048ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .login-btn {
+            background-color: #0048ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-dropdown a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            font-size: 16px;
+        }
+
+        .user-dropdown:hover .user-menu {
+            display: block;
+        }
+
+        .user-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-menu a:hover {
+            background-color: #f1f1f1;
+            color: #007bff;
+        }
+
+        main {
+            padding: 50px 20px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+        }
+ .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+        .appointment-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            margin: 0 auto;
+        }
+  .form-container button {
+            width: 100%;
+            background-color: #0062ff; /* Blue color */
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .form-container button:hover {
+            background-color: #004dcf; /* Darker blue on hover */
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .appointment-form h2 {
+            color: #0048ff;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .appointment-form div {
+            margin-bottom: 15px;
+        }
+
+        .appointment-form input, .appointment-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .appointment-form label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .appointment-form button {
+            width: 100%;
+            background-color: #0048ff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .appointment-form button:hover {
+            background-color: #007bff;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/aftercontact">Contact</a>
+            <a href="/aftervideo">Video</a>
+            <a href="/afterexercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/afterdoctor">Doctor</a>
+
+            <div class="user-dropdown">
+                <a href="#">{{ username }}</a>
+                <div class="user-menu">
+                    <a href="/edit-profile">Edit Profile</a>
+                    <a href="/change-password">Change Password</a>
+                    <a href="/booking-history">Booking History</a>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="login-btn">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="appointment-form">
+            <h2>Book an Appointment</h2>
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <div>
+                    {{ form.name.label }}<br>
+                    {{ form.name(size=32) }}<br>
+                    {% for error in form.name.errors %}
+                        <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.doctor_id.label }}<br>
+                    {{ form.doctor_id() }}<br>
+                    {% for error in form.doctor_id.errors %}
+                        <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.appointment_type.label }}<br>
+                    {{ form.appointment_type() }}<br>
+                    {% for error in form.appointment_type.errors %}
+                        <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.date.label }}<br>
+                    {{ form.date() }}<br>
+                    {% for error in form.date.errors %}
+                        <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.time.label }}<br>
+                    {{ form.time() }}<br>
+                    {% for error in form.time.errors %}
+                        <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                 <div>
+                    <button type="submit">{{ form.submit.label }}</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Genai. All rights reserved.</p>
+    </footer>
+  <script>
+        // JavaScript to ensure past dates and times cannot be selected
+        window.onload = function() {
+            // Set minimum date to today's date
+            let today = new Date().toISOString().split('T')[0];
+            document.getElementById("date").setAttribute('min', today);
+
+            // Set minimum time if it's the current day
+            document.getElementById("date").addEventListener('change', function() {
+                let selectedDate = new Date(this.value);
+                let now = new Date();
+                if (selectedDate.toDateString() === now.toDateString()) {
+                    document.getElementById("time").setAttribute('min', now.toTimeString().split(' ')[0]);
+                } else {
+                    document.getElementById("time").removeAttribute('min');
+                }
+            });
+        };
+    </script>
+<script>
+        function showSuccessMessage() {
+            let messageDiv = document.getElementById('successMessage');
+            messageDiv.classList.add('show');
+            setTimeout(function() {
+                messageDiv.classList.remove('show');
+            }, 5000); // Hide message after 5 seconds
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise | Genai</title>
+    <style>
+        /* Header and Footer Styles */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0048ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .login-btn {
+            background-color: #0048ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        main {
+            padding: 50px 20px;
+        }
+
+        /* Exercise Category Styles */
+        .exercise-category {
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .exercise-category h2 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+ .user-dropdown a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            font-size: 16px;
+        }
+
+        .user-dropdown:hover .user-menu {
+            display: block;
+        }
+
+        /* Style for the dropdown menu */
+        .user-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-menu a:hover {
+            background-color: #f1f1f1;
+            color: #007bff;
+        }
+        .exercise-category .category-card {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 320px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-category .category-card:hover {
+            transform: scale(1.05);
+        }
+
+        .exercise-category img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .exercise-category a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #0048ff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .exercise-category a:hover {
+            background-color: #007bff;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+
+
+            .exercise-category {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .exercise-category .category-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+ <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Logo">-->
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/aftercontact">Contact</a>
+            <a href="/aftervideo">Video</a>
+            <a href="/afterexercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/afterdoctor">Doctor</a>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown">
+
+                <a href="#">{{ username }}</a>
+                <div class="user-menu">
+                    <a href="/edit-profile">Edit Profile</a>
+                    <a href="/change-password">Change Password</a>
+                    <a href="/booking-history">Booking History</a>
+                </div>
+            </div>
+             <a href="{{ url_for('logout') }}" class="login-btn">Logout</a>
+
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <h2 style="text-align: center; color: #0973e5; font-size: 30px; font-style: auto;">Select an Exercise Category</h2>
+    <main>
+        <div class="exercise-category">
+            {% for category in categories %}
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/' + category.image_url) }}" alt="{{ category.category_name }} Icon">
+                <h3>{{ category.category_name }}</h3>
+               <a href="{{ url_for('exercises_by_category1', category_id=category.category_id) }}">View Exercises</a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Genai. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

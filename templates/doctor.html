@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors</title>
+    <style>
+    /* Style for the header */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for the logo */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff; /* Blue color for Genai */
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style for the navigation menu */
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Style for the navigation links */
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Special style for the login button */
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        /* Style for the main section */
+        main {
+            padding: 10px 20px;
+            display: flex;
+            margin-bottom: 50px;
+        }
+
+        /* Style for the side menu */
+        .side-menu {
+            width: auto;
+            padding: 10px;
+            margin-right: 20px;
+        }
+
+        .side-menu h3 {
+            color: #007bff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .side-menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            margin-bottom: 20px;
+        }
+
+        .side-menu ul li a {
+            text-decoration: none;
+            color: #333;
+            font-family: auto;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .side-menu ul li a:hover {
+            color: #007bff;
+        }
+
+        /* Style for the doctor section */
+        .doctors-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .doctor-card {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            margin: 20px;
+            display: none; /* Hide by default */
+        }
+
+        .doctor-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .doctor-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #007bff;
+        }
+
+        .doctor-card p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .book-now-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .book-now-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for the footer */
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+  <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Logo">-->
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/contact">Contact</a>
+            <a href="/video">Video</a>
+            <a href="/exercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/doctor">Doctor</a>
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+
+
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <h3 style="text-align: center; color: #0973e5; font-size: 30px; font-style: auto;">Doctor Specialties</h3>
+    <main>
+        <!--
+        <div class="side-menu">
+            <h3>Doctor Specialties</h3>
+            <ul>
+                <li><a href="#" data-specialty="All">All</a></li>
+                {% for doctor in doctors %}
+                    <li><a href="#" data-specialty="{{ doctor.specialty }}">{{ doctor.specialty }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>-->
+
+        <!-- Doctors Section -->
+        <div class="doctors-section">
+            {% for doctor in doctors %}
+                <div class="doctor-card" data-specialty="{{ doctor.specialty }}">
+                    <img src="{{ url_for('static', filename='images/' + doctor.image_url) }}" alt="{{ doctor.name }}">
+                    <h3>{{ doctor.name }}</h3>
+                    <p>Specialty: {{ doctor.specialty }}</p>
+                    <p>Experience: {{ doctor.experience }} years</p>
+
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- JavaScript for Filtering -->
+    <script>
+        const doctorCards = document.querySelectorAll('.doctor-card');
+        const specialtyLinks = document.querySelectorAll('.side-menu a');
+
+        // Function to filter doctor cards
+        function filterDoctors(specialty) {
+            doctorCards.forEach(card => {
+                if (card.getAttribute('data-specialty') === specialty || specialty === 'All') {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add click event listeners to the specialty links
+        specialtyLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const specialty = event.target.getAttribute('data-specialty');
+                filterDoctors(specialty);
+            });
+        });
+
+        // Show all doctors by default
+        filterDoctors('All');
+    </script>
+</body>
+</html>

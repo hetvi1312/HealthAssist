@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment History - Genai</title>
+    <style>
+        /* Style for the header */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for the logo */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0048ff; /* Blue color for Genai */
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style for the image in the logo */
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        /* Style for the navigation menu */
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Style for the navigation links */
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Special style for the login button */
+        .login-btn {
+            background-color: #0048ff; /* Blue background for the button */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #007bff;
+            color: white; /* Darker blue on hover */
+        }
+
+        /* Style for the main section */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* Style for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #0048ff; /* Blue background for the header */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Alternating row color */
+        }
+
+        tr:hover {
+            background-color: #ddd; /* Highlight row on hover */
+        }
+
+        /* Style for the footer */
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            /* Make the layout vertical on smaller screens */
+            main {
+                flex-direction: column;
+            }
+        }
+ .user-dropdown a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            font-size: 16px;
+        }
+
+        .user-dropdown:hover .user-menu {
+            display: block;
+        }
+
+        /* Style for the dropdown menu */
+        .user-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-menu a:hover {
+            background-color: #f1f1f1;
+            color: #007bff;
+        }
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+
+            .contact-form {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Logo">-->
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/aftercontact">Contact</a>
+            <a href="/aftervideo">Video</a>
+            <a href="/afterexercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/afterdoctor">Doctor</a>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown">
+
+                <a href="#">{{ username }}</a>
+                <div class="user-menu">
+                    <a href="/edit-profile">Edit Profile</a>
+                    <a href="/change-password">Change Password</a>
+                    <a href="/booking-history">Booking History</a>
+                </div>
+            </div>
+             <a href="{{ url_for('logout') }}" class="login-btn">Logout</a>
+
+        </nav>
+    </header>
+
+
+    <!-- Content section for the appointment history -->
+      <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+
+
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Time</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment['appointment_id'] }}</td>
+
+                    <td>{{ appointment['name'] }}</td>
+                    <td>{{ appointment['appointment_type'] }}</td>
+                    <td>{{ appointment['appointment_date'] }}</td>
+                    <td>{{ appointment['appointment_time'] }}</td>
+         </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Genai. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

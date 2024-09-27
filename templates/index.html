@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genai</title>
+    <style>
+        /* Style for the header */
+        header {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for the logo */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0048ff; /* Blue color for Genai */
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style for the navigation menu */
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Style for the navigation links */
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Special style for the login button */
+        .login-btn {
+            background-color: #0048ff; /* Blue background for the button */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #007bff;
+            color: white; /* Darker blue on hover */
+        }
+
+        /* Style for the user dropdown */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-dropdown a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            font-size: 16px;
+        }
+
+        .user-dropdown:hover .user-menu {
+            display: block;
+        }
+
+        /* Style for the dropdown menu */
+        .user-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-menu a:hover {
+            background-color: #f1f1f1;
+            color: #007bff;
+        }
+
+        /* Style for the main section */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* Style for the text side */
+        .content-text {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .content-text h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content-text p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Style for the image side */
+        .content-image {
+            flex: 1;
+        }
+
+        .content-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Style for the footer */
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            /* Make the layout vertical on smaller screens */
+            main {
+                flex-direction: column;
+            }
+
+            .content-text {
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+
+        .exercise-categories {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .exercise-categories h2 {
+            font-size: 28px;
+            color: #0048ff;
+            margin-bottom: 20px;
+        }
+
+        .categories-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #007bff;
+        }
+
+        .view-more-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-more-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Logo">-->
+            <span>HealthAssist</span>
+        </div>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/aftercontact">Contact</a>
+            <a href="/aftervideo">Video</a>
+            <a href="/afterexercise">Exercise</a>
+            <a href="/appointment">Appointment</a>
+            <a href="/afterdoctor">Doctor</a>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown">
+
+                <a href="#">{{ username }}</a>
+                <div class="user-menu">
+                    <a href="/edit-profile">Edit Profile</a>
+                    <a href="/change-password">Change Password</a>
+                    <a href="/booking-history">Booking History</a>
+                </div>
+            </div>
+             <a href="{{ url_for('logout') }}" class="login-btn">Logout</a>
+
+        </nav>
+    </header>
+
+    <!-- Content section with text on one side and image on the other -->
+    <main>
+        <div class="content-text">
+            <h1>Find & Book <span style="color: #007bff;">Appointment </span> with your Fav <span style="color: #007bff;">Doctors</span></h1>
+            <p>
+                Explore our range of services, from personalized health advice to booking appointments with doctors.
+                Whether you're looking for fitness routines, dietary plans, or health consultations, Genai has you covered.
+            </p>
+        </div>
+        <div class="content-image">
+            <img src="static/images/1.webp" alt="Health and Fitness">
+        </div>
+    </main>
+    <section class="exercise-categories">
+        <h2>Exercise Categories</h2>
+        <div class="categories-list">
+            <div class="category-card">
+                <h3>Meditation</h3>
+                <p>Practice mindfulness and relaxation techniques to calm your mind and reduce stress.</p>
+            </div>
+            <div class="category-card">
+                <h3>Yoga</h3>
+                <p>Engage in poses and stretches to enhance flexibility, strength, and overall wellness.</p>
+            </div>
+            <div class="category-card">
+                <h3>Pranayama</h3>
+                <p>Explore breathing exercises to improve respiratory function and mental clarity.</p>
+            </div>
+            <div class="category-card">
+                <h3>Surya Namaskar</h3>
+                <p>Enhances overall vitality, flexibility, and mental clarity through a comprehensive sequence of synchronized movements and breathing.</p>
+            </div>
+            <div class="category-card">
+                <h3>Stretch</h3>
+                <p>Increase your range of motion and prevent injuries with targeted stretching exercises.</p>
+            </div>
+        </div>
+        <a href="/afterexercise" class="view-more-btn">View More</a>
+    </section>
+</br>
+    </br>
+   <script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "0bc810b5-4c2c-4c80-8b11-43c178b2184e",
+    region: "au-syd",
+    serviceInstanceID: "6969c975-609c-4bd9-9c63-4c8712302d30",
+    onLoad: async (instance) => {
+      await instance.render();
+
+      // Capture user and assistant messages
+      instance.on({ type: 'message:send' }, function(event) {
+        const userMessage = event.data.input.text;
+        // Call the backend to save user message
+        saveChatHistory(userMessage, null);
+      });
+
+      instance.on({ type: 'message:receive' }, function(event) {
+        const assistantResponse = event.data.output.generic[0].text;
+        // Call the backend to update chat history with assistant response
+        saveChatHistory(null, assistantResponse);
+      });
+    }
+  };
+
+  function saveChatHistory(userMessage, assistantResponse) {
+    fetch('/save_chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_message: userMessage,
+        assistant_response: assistantResponse
+      })
+    });
+  }
+
+  setTimeout(function() {
+    const t = document.createElement('script');
+    t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HealthAssist. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

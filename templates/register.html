@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <style>
+        /* Center the form on the page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #d3ddf9;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 450px;
+        }
+        .form-container h1 {
+            color: #2b2b2b;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-container label {
+            display: none;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            background-color: #0062ff;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .form-container button:hover {
+            background-color: #004dcf;
+        }
+        .form-container .terms {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .form-container .terms input {
+            margin-right: 5px;
+        }
+        .form-container .login-link {
+            text-align: center;
+            font-size: 12px;
+        }
+        .form-container .login-link a {
+            color: #0062ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registration</h1>
+        <form method="POST" action="{{ url_for('register') }}">
+            {{ form.hidden_tag() }}
+            {{ form.username(size=32, placeholder="Enter your name", style="width: 95%; padding: 15px; border: 2px solid #ccc; border-radius: 5px; margin-bottom: 15px;") }}
+            {{ form.email(size=32, placeholder="Enter your email", style="width: 95%; padding: 15px; border: 2px solid #ccc; border-radius: 5px; margin-bottom: 15px;") }}
+            {{ form.password(size=32, placeholder="Create password", style="width: 95%; padding: 15px; border: 2px solid #ccc; border-radius: 5px; margin-bottom: 15px;") }}
+            {{ form.confirm(size=32, placeholder="Confirm password", style="width: 95%; padding: 15px; border: 2px solid #ccc; border-radius: 5px; margin-bottom: 15px;") }}
+            {{ form.phone(size=32, placeholder="Enter your phone number", style="width: 95%; padding: 15px; border: 2px solid #ccc; border-radius: 5px; margin-bottom: 15px;") }}
+
+            <button type="submit">Register Now</button>
+        </form>
+</br>
+        <div class="login-link">
+            <p style="font-size:20px;">Already have an account? <a href="{{ url_for('login') }}">Login now</a></p>
+        </div>
+    </div>
+</body>
+</html>
